@@ -23,6 +23,6 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
     */
-    export const homePage = (req, res) => {
-  res.render("home", { title: "XianFire Home" });
+  export const homePage = (req, res) => {
+  res.render("insert", { title: "XianFire Home" });
 };

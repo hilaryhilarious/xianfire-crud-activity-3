@@ -25,37 +25,67 @@
 import { Library, sequelize } from "../models/Library.js";
 
 await sequelize.sync();
-const library ={
-  index: async (req, res) => {
-    res.send("Index Page");
-  },
-  insert:async (req,res) => {
-      const {bookTitle, borrowerName, borrowedDate, returnDate, status, remarks} = req.body;
-      await Product.create({bookTitle, borrowerName, borrowedDate, returnDate, status, remarks});
+
+const library = {
+    index: async (req, res) => {
+        try {
+            const record = await Library.findAll();
+            res.render("insert", {record});
+        } catch (error) {
+            res.status(500).send(error.message);
+        }
     },
-    all: async(req,res) =>{
-      const library = await Library.findAll();
-      res.json({
-        library
-      })
+    insert: async (req, res) => {
+        try {
+            const {bookTitle, borrowerName, borrowedDate, returnDate, status, remarks} = req.body;
+            await Library.create({bookTitle, borrowerName, borrowedDate, returnDate, status, remarks});
+            res.redirect("/library");
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
     },
-    one: async(req, res) =>{
-      const{id} = req.params;
-      const data = await Library.findByPk(id);
-      res.json({data});
+    getRecord: async(req, res) =>{
+      const id = req.params.id;
+      const record = await Library.findByPk(id);
+      res.render("edit", {record});
     },
-    update: async (req, res) =>{
-      const {id} = req.params;
-      const {bookTitle, borrowerName, borrowedDate, returnDate, status, remarks} = req.body;
-      const library = await Library.findByPk(id);
-      await library.update({bookTitle, borrowerName, borrowedDate, returnDate, status, remarks});
-      res.json(library);
+    one: async (req, res) => {
+        const { id } = req.params;
+        const data = await Library.findByPk(id);
+
+        if (!data) {
+            return res.status(404).json({
+                message: "Library record not found"
+            });
+        }
+        res.json({ data });
     },
-    delete: async (req, res) =>{
-      const {id} = req.params;
-      const library = await Library.findByPk(id);
-      await library.destroy();
-      res.json({message: "Library record deleted"});
+    update: async (req, res) => {
+        const { id } = req.params;
+        const {bookTitle, borrowerName, borrowedDate, returnDate, status, remarks} = req.body;
+        const record = await Library.findByPk(id);
+
+        if (!record) {
+            return res.status(404).json({
+                message: "Library record not found"
+            });
+        }
+
+        await record.update({bookTitle, borrowerName, borrowedDate, returnDate, status, remarks});
+        res.redirect("/library");
+    },
+    delete: async (req, res) => {
+        const { id } = req.params;
+        const record = await Library.findByPk(id);
+
+        if (!record) {
+            return res.status(404).json({
+                message: "Library record not found"
+            });
+        }
+        await record.destroy();
+        res.redirect("/library");
     }
 };
+
 export { library };

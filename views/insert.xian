@@ -1,0 +1,46 @@
+{{> head }}
+<body class="bg-gray-50">
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-center mt-10">Welcome to XianFire 🔥</h1>
+    <p class="text-center mt-4">Home Page</p>
+    <form method ="post" action="/library" class="space-y-4 mt-6">     
+        <input type="text" name="bookTitle" placeholder="Book Title">
+        <input type="text" name="borrowerName" placeholder="Borrower Name">
+        <input type="text" name="borrowedDate" placeholder="Borrowed Date">
+        <input type="text" name="returnDate" placeholder="Return Date">
+        <input type="text" name="status" placeholder="Status">
+        <input type="text" name="remarks" placeholder="Remarks">
+        <input type="submit">
+    </form>
+</div>
+<div class="max-w-5xl mx-auto mt-5 overflow-x-auto">
+<table class="w-full border-collapse border border-gray-400">
+    <tr>
+        <th class="border border-gray-400 px-4 py-2">bookTitle</th>
+        <th class="border border-gray-400 px-4 py-2">borrowerName</th>
+        <th class="border border-gray-400 px-4 py-2">borrowedDate</th>
+        <th class="border border-gray-400 px-4 py-2">returnDate</th>        
+        <th class="border border-gray-400 px-4 py-2">status</th>
+        <th class="border border-gray-400 px-4 py-2">remarks</th>
+        <th class="border border-gray-400 px-4 py-2">action</th>
+    </tr>
+    {{#each record}}
+    <tr>
+        <td class="border border-gray-400 px-4 py-2">{{bookTitle}}</td>
+        <td class="border border-gray-400 px-4 py-2">{{borrowerName}}</td>
+        <td class="border border-gray-400 px-4 py-2">{{borrowedDate}}</td>
+        <td class="border border-gray-400 px-4 py-2">{{returnDate}}</td>
+        <td class="border border-gray-400 px-4 py-2">{{status}}</td>
+        <td class="border border-gray-400 px-4 py-2">{{remarks}}</td>
+        <td class="border border-gray-400 px-4 py-2">
+            <a href="/library/{{id}}"
+                class="text-blue-600 underline">Edit</a>
+                <form method="POST" action="/library/{{id}}/delete"
+                    style="display:inline">
+                    <button type="submit" class="text-red-600 underline">Delete</button>
+                </form>
+        </td>
+    </tr>
+    {{/each}}
+</table>
+{{> footer }}

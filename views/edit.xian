@@ -1,0 +1,49 @@
+<div class="max-w-xl mx-auto mt-8 p-6 border border-gray-300 rounded-lg">
+    <h2 class="text-xl font-bold mb-4">Edit Library Record</h2>
+
+    <form method="POST" action="/library/{{record.id}}">
+        <label>Book Title</label>
+        <input type="text" name="bookTitle"
+            value="{{record.bookTitle}}"
+            class="w-full border border-gray-300 rounded p-2 mb-3"
+            required>
+
+        <label>Borrower Name</label>
+        <input type="text" name="borrowerName"
+            value="{{record.borrowerName}}"
+            class="w-full border border-gray-300 rounded p-2 mb-3"
+            required>
+
+        <label>Borrowed Date</label>
+        <input type="date" name="borrowedDate"
+            value="{{record.borrowedDate}}"
+            class="w-full border border-gray-300 rounded p-2 mb-3"
+            required>
+
+        <label>Return Date</label>
+        <input type="date" name="returnDate"
+            value="{{record.returnDate}}"
+            class="w-full border border-gray-300 rounded p-2 mb-3">
+
+        <label>Status</label>
+        <input type="text" name="status"
+            value="{{record.status}}"
+            class="w-full border border-gray-300 rounded p-2 mb-3"
+            required>
+
+        <label>Remarks</label>
+        <input type="text" name="remarks"
+            value="{{record.remarks}}"
+            class="w-full border border-gray-300 rounded p-2 mb-4">
+
+        <button type="submit"
+            class="border border-blue-600 rounded px-4 py-2">
+            Update
+        </button>
+
+        <a href="/library"
+        class="ml-3 text-gray-600 underline">
+            Cancel
+        </a>
+    </form>
+</div>

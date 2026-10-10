@@ -33,8 +33,8 @@ import { sequelize } from "./db.js";
 export const Library = sequelize.define("library", {
   bookTitle: { type: DataTypes.STRING, allowNull: false },
   borrowerName: { type: DataTypes.STRING, allowNull: false },
-  borrowedDate: { type: DataTypes.DATE, allowNull: false },
-  returnDate: { type: DataTypes.DATE, allowNull: false },
+  borrowedDate: { type: DataTypes.DATEONLY, allowNull: false },
+  returnDate: { type: DataTypes.DATEONLY, allowNull: false },
   status: { type: DataTypes.STRING, allowNull: false },
   remarks: { type: DataTypes.STRING, allowNull: false },
 });
